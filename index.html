@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carley - Desarrollos Web, Apps, Modelado 3D & Paneles Solares</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="#" class="brand-logo">
+      <div class="brand-icon">C</div>
+      <span>Carley</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#modelado3d">Modelado 3D</a></li>
+      <li><a href="#panelessolares">Paneles Solares</a></li>
+    </ul>
+    <a href="https://wa.me/?text=Hola%20Carley,%20deseo%20obtener%20más%20información%20sobre%20sus%20servicios" target="_blank" class="btn-primary btn-whatsapp">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Contactar WhatsApp
+    </a>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="inicio" class="hero-section">
+    <div class="canvas-container">
+      <canvas id="dotsCanvas"></canvas>
+    </div>
+
+    <div class="hero-content">
+      <div class="gold-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Ingeniería Digital & Energía Disruptiva
+      </div>
+
+      <h1 class="hero-title">
+        Bienvenido a <span class="gold-text">Carley</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Si buscas crear un sitio web para tu negocio — sea gimnasio, restaurante, tienda — o si lo que buscas es una App personalizada, somos exactamente lo que necesitas: profesionales con años de experiencia dedicados a impulsar tu éxito.
+      </p>
+
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="https://wa.me/?text=Hola%20Carley,%20me%20interesa%20crear%20mi%20sitio%20web%20o%20App" target="_blank" class="btn-primary">
+          Comenzar Proyecto
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </div>
+
+      <!-- Services Grid Cards -->
+      <div id="servicios" class="services-grid">
+        <div class="service-card glass-panel">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          </div>
+          <h3 class="service-title">Sitios Web Pro</h3>
+          <p class="service-desc">Diseños vanguardistas para Gimnasios, Restaurantes, Tiendas y Corporativos con alta conversión y SEO.</p>
+        </div>
+
+        <div class="service-card glass-panel">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          </div>
+          <h3 class="service-title">Apps Móviles iOS & Android</h3>
+          <p class="service-desc">Aplicaciones nativas e híbridas ultra rápidas, intuitivas y creadas con los estándares de diseño Apple.</p>
+        </div>
+
+        <div class="service-card glass-panel">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <h3 class="service-title">Experiencia de Años</h3>
+          <p class="service-desc">Equipo senior listo para materializar cualquier idea tecnológica con precisión de ingeniería.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3D Modeling Showcase Section (Placed directly below Web/App services) -->
+  <section id="modelado3d" class="section-3d">
+    <div class="container">
+      <div class="banner-3d" style="background-image: radial-gradient(circle at 70% 50%, rgba(212, 175, 55, 0.15), transparent 70%), url('assets/3d-bg.jpg');">
+        <div class="banner-3d-content">
+          <div class="gold-badge" style="margin-bottom: 20px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+            Modelado & Renderizado 3D
+          </div>
+          <h2 class="section-title">
+            Tenemos un equipo de <span class="gold-text">Profesionales en Modelado 3D</span>
+          </h2>
+          <p class="section-subtitle" style="text-align: left; margin-bottom: 30px;">
+            Creamos experiencias tridimensionales hiperrealistas, renderizados fotorrealistas de productos, arquitectura y entornos virtuales listos para elevar tu marca al máximo nivel visual.
+          </p>
+          <a href="https://wa.me/?text=Hola%20Carley,%20quiero%20cotizar%20un%20proyecto%20de%20Modelado%203D" target="_blank" class="btn-primary">
+            Solicitar Demostración 3D
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solar Energy Section -->
+  <section id="panelessolares" class="section-solar">
+    <div class="container">
+      <div class="section-header">
+        <div class="gold-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          Soluciones Energéticas Premium
+        </div>
+        <h2 class="section-title">
+          Paneles Solares <span class="gold-text">Carley</span>
+        </h2>
+        <p class="section-subtitle">
+          Si estás corto de energía, no tienes electricidad o se va a cada rato, ¡también somos vuestra solución!
+        </p>
+      </div>
+
+      <div class="solar-features">
+        <div class="solar-card glass-panel-gold">
+          <div class="solar-spec">600W – 730W</div>
+          <h3 class="service-title">Paneles Solares de Alta Eficiencia</h3>
+          <p class="service-desc">
+            Con nuestros paneles solares de 600W-730W de marcas de clase mundial como <strong>JA Solar</strong>, <strong>Jinko Solar</strong> y <strong>Just Solar</strong>, llenarás tu hogar o negocio de energía solar durante todo el día.
+          </p>
+          <div class="brand-badges-grid">
+            <div class="brand-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+              JA Solar
+            </div>
+            <div class="brand-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+              Jinko Solar
+            </div>
+            <div class="brand-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+              Just Solar
+            </div>
+          </div>
+        </div>
+
+        <div class="solar-card glass-panel-gold">
+          <div class="solar-spec">Energía 24/7</div>
+          <h3 class="service-title">Baterías e Inversores Felicity Solar</h3>
+          <p class="service-desc">
+            Equipados con sistemas avanzados de almacenamiento e inversores <strong>Felicity Solar</strong> que garantizarán el respaldo total en tu hogar de noche, dándote electricidad continua las 24 horas, los 7 días de la semana.
+          </p>
+          <div class="brand-badges-grid">
+            <div class="brand-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="2" ry="2"></rect><line x1="22" y1="11" x2="22" y2="13"></line></svg>
+              Felicity Solar (Baterías & Inversores)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 40px;">
+        <p style="color: var(--text-sub); margin-bottom: 24px; font-size: 1.1rem;">
+          Contáctanos en WhatsApp y obtén más informaciones y tu cotización personalizada sin compromiso.
+        </p>
+        <a href="https://wa.me/?text=Hola%20Carley,%20deseo%20más%20información%20y%20cotización%20sobre%20sus%20Paneles%20Solares%20y%20Baterías" target="_blank" class="btn-primary btn-whatsapp" style="padding: 18px 36px; font-size: 1.05rem;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Contactar por WhatsApp ahora
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating WhatsApp Action Button -->
+  <a href="https://wa.me/?text=Hola%20Carley,%20me%20gustaría%20solicitar%20información" target="_blank" class="whatsapp-float" aria-label="Contactar en WhatsApp">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+  </a>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© <span id="year"></span> Carley. Todos los derechos reservados. Tecnología y Energía de vanguardia.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
