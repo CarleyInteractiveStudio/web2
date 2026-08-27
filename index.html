@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carley - Apps, Sitios Web, Video Juegos, Modelado 3D & Paneles Solares</title>
+  <title>Carley - Desarrollos Digitales, Apps, Modelado 3D & Paneles Solares</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,7 +11,7 @@
 </head>
 <body>
 
-  <!-- Hero Section -->
+  <!-- Hero Section with Moving Particles Canvas -->
   <section id="inicio" class="hero-section">
     <div class="canvas-container">
       <canvas id="dotsCanvas"></canvas>
@@ -27,57 +27,47 @@
       </h1>
 
       <p class="hero-subtitle">
-        Somos tus profesionales de servicio en cuanto se trata de <strong>App</strong>, <strong>sitio web</strong>, <strong>video juegos</strong>, <strong>modelaje 3d</strong>, <strong>Paneles solares</strong>, <strong>Inversores e baterias</strong>.
+        Si buscas crear un <a href="#web-apps" class="hero-inline-link">sitio web para tu negocio</a> (sea gimnasio, restaurante o tienda) o si lo que buscas es una <a href="#web-apps" class="hero-inline-link">App móvil</a>, pues somos lo que necesitas: profesionales con años de experiencia. También diseñamos <a href="#video-juegos" class="hero-inline-link">video juegos</a>, contamos con un equipo especializado en <a href="#modelado3d" class="hero-inline-link">modelado 3D</a> y si sufres por cortes de luz, nuestras soluciones en <a href="#panelessolares" class="hero-inline-link">paneles solares e inversores</a> llenarán tu hogar de energía 24/7.
       </p>
-
-      <!-- Interactive Quick Nav Buttons in Hero -->
-      <div class="service-nav-buttons">
-        <button class="nav-chip" data-target="sitios-web">🌐 Sitios Web</button>
-        <button class="nav-chip" data-target="apps-moviles">📱 Apps Móviles</button>
-        <button class="nav-chip" data-target="video-juegos">🎮 Video Juegos</button>
-        <button class="nav-chip" data-target="modelado3d">📦 Modelaje 3D</button>
-        <button class="nav-chip" data-target="panelessolares">☀️ Paneles Solares</button>
-        <button class="nav-chip" data-target="panelessolares">🔋 Inversores & Baterías</button>
-      </div>
     </div>
   </section>
 
   <!-- Main Content Sections -->
   <main class="main-container">
 
-    <!-- 1. Sitios Web -->
-    <section id="sitios-web" class="content-section">
-      <div class="section-label">Desarrollo Web</div>
-      <h2 class="section-title">Sitios Web para tu Negocio</h2>
-      <p class="section-text">
-        Si buscas crear un sitio web para tu negocio — sea <strong>gimnasio</strong>, <strong>restaurante</strong>, <strong>tienda</strong> o empresa corporativa — somos exactamente lo que necesitas. Diseños modernos estilo Apple, optimizados para Google, ultra rápidos y listos para convertir visitantes en clientes.
-      </p>
-      <div class="features-row">
-        <div class="feature-item">
-          <h3>🏋️ Gimnasios & Centros Deportivos</h3>
-          <p>Sistemas de reservas, membresías y catálogos interactivos de clases.</p>
-        </div>
-        <div class="feature-item">
-          <h3>🍽️ Restaurantes & Cafeterías</h3>
-          <p>Menús digitales QR, pedidos en línea y reservas de mesas automatizadas.</p>
-        </div>
-        <div class="feature-item">
-          <h3>🛍️ Tiendas & Ecommerce</h3>
-          <p>Pasarelas de pago seguras, catálogo de productos y gestión de inventario.</p>
+    <!-- 1. Combined Web & Apps Section with 10s Alternating Background -->
+    <section id="web-apps" class="content-section web-apps-section">
+      <div id="web-app-bg-wrapper" class="bg-rotator">
+        <div class="bg-slide bg-slide-1"></div>
+        <div class="bg-slide bg-slide-2"></div>
+        <div class="bg-overlay"></div>
+      </div>
+
+      <div class="section-content-relative">
+        <div class="section-label">Soluciones Digitales</div>
+        <h2 class="section-title">Desarrollo Web & Apps Móviles</h2>
+        <p class="section-text">
+          Si buscas crear un sitio web para tu negocio — sea <strong>gimnasio</strong>, <strong>restaurante</strong>, <strong>tienda</strong> o cualquier empresa — o si lo que buscas es una <strong>App móvil para iOS y Android</strong>, somos exactamente lo que necesitas. Unimos el desarrollo web y las aplicaciones bajo una misma visión tecnológica: soluciones ultra rápidas, con diseño premium estilo Apple y optimizadas para hacer crecer tu negocio.
+        </p>
+
+        <div class="features-row">
+          <div class="feature-item">
+            <h3>🏋️ Gimnasios & Centros Deportivos</h3>
+            <p>Sistemas de membresías, reservas de clases y Apps de seguimiento personal.</p>
+          </div>
+          <div class="feature-item">
+            <h3>🍽️ Restaurantes & Cafeterías</h3>
+            <p>Menús digitales interactivos QR, pedidos en línea y Apps de delivery.</p>
+          </div>
+          <div class="feature-item">
+            <h3>🛍️ Tiendas & Ecommerce</h3>
+            <p>Plataformas de venta online, pagos encriptados y Apps móviles de compras.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 2. Apps Móviles -->
-    <section id="apps-moviles" class="content-section">
-      <div class="section-label">Aplicaciones</div>
-      <h2 class="section-title">Apps Móviles iOS & Android</h2>
-      <p class="section-text">
-        Desarrollamos aplicaciones móviles nativas e híbridas con rendimiento excepcional y diseño elegante. Si lo que buscas es una App para llevar tu proyecto al siguiente nivel, nuestro equipo con años de experiencia lo hace realidad.
-      </p>
-    </section>
-
-    <!-- 3. Video Juegos -->
+    <!-- 2. Video Juegos -->
     <section id="video-juegos" class="content-section">
       <div class="section-label">Entretenimiento & Interactive</div>
       <h2 class="section-title">Desarrollo de Video Juegos</h2>
@@ -86,7 +76,7 @@
       </p>
     </section>
 
-    <!-- 4. Modelado 3D (Directamente debajo de Apps/Juegos) -->
+    <!-- 3. Modelado 3D (Directamente debajo de Apps/Juegos) -->
     <section id="modelado3d" class="content-section highlight-box">
       <div class="section-label">Modelado Tridimensional</div>
       <h2 class="section-title">Equipo de Profesionales en <span class="gold-text">Modelado 3D</span></h2>
@@ -95,10 +85,10 @@
       </p>
     </section>
 
-    <!-- 5. Paneles Solares & Inversores/Baterías -->
+    <!-- 4. Paneles Solares & Inversores/Baterías -->
     <section id="panelessolares" class="content-section highlight-box-gold">
       <div class="section-label">Energía Solar Continuada</div>
-      <h2 class="section-title">Paneles Solares, Inversores e Baterías</h2>
+      <h2 class="section-title">Paneles Solares, Inversores & Baterías</h2>
       <p class="section-text">
         ¿Estás corto de energía, no tienes electricidad o se va a cada rato? ¡También somos vuestra solución!
       </p>
@@ -116,7 +106,7 @@
       </div>
     </section>
 
-    <!-- 6. ¿Por qué preferirnos? -->
+    <!-- 5. ¿Por qué preferirnos? -->
     <section id="porque-preferirnos" class="content-section">
       <div class="section-label">Garantía & Confianza</div>
       <h2 class="section-title">¿Por qué preferirnos en <span class="gold-text">Carley</span>?</h2>
