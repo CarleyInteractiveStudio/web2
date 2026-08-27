@@ -1,8 +1,9 @@
-// Carley Interactive Dot Grid Canvas Animation & Interactivity
+// Carley Interactive Dot Grid & Letter "C" Animation
 
 document.addEventListener('DOMContentLoaded', () => {
   initGridCanvas();
   updateFooterYear();
+  setupNavChips();
 });
 
 function updateFooterYear() {
@@ -10,6 +11,21 @@ function updateFooterYear() {
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
+}
+
+function setupNavChips() {
+  const chips = document.querySelectorAll('.nav-chip');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const targetId = chip.getAttribute('data-target');
+      if (targetId) {
+        const el = document.getElementById(targetId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  });
 }
 
 function initGridCanvas() {
@@ -20,16 +36,34 @@ function initGridCanvas() {
   let width, height;
   let dots = [];
 
-  // Grid parameters: aligned in square grid
-  const spacing = 35;
-  const baseRadius = 2.4;
-  let mouse = { x: -1000, y: -1000, radius: 180 };
+  const spacing = 32;
+  const baseRadius = 2.2;
+  let mouse = { x: -1000, y: -1000, radius: 160 };
 
   function resize() {
     const parent = canvas.parentElement;
     width = canvas.width = parent.clientWidth;
     height = canvas.height = parent.clientHeight;
     createDots();
+  }
+
+  // Check if a point (x, y) forms part of a large letter "C" outline
+  function isLetterC(normX, normY) {
+    // Canvas normalized coordinates relative to center (0 to 1)
+    // Center of "C" is around (0.5, 0.5), radius ~0.25 to 0.35
+    const cx = 0.5;
+    const cy = 0.5;
+    const dx = normX - cx;
+    const dy = normY - cy;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    // Inner radius 0.20, outer radius 0.32
+    const ringMatch = dist >= 0.18 && dist <= 0.32;
+    // Open gap on the right side (angle between -35 deg and +35 deg)
+    const angle = Math.atan2(dy, dx);
+    const notGap = (angle < -Math.PI / 4) || (angle > Math.PI / 4);
+
+    return ringMatch && notGap;
   }
 
   function createDots() {
@@ -41,13 +75,20 @@ function initGridCanvas() {
       for (let j = 0; j < rows; j++) {
         const x = i * spacing;
         const y = j * spacing;
+
+        const normX = x / width;
+        const normY = y / height;
+
+        const isC = isLetterC(normX, normY);
+
         dots.push({
           baseX: x,
           baseY: y,
           x: x,
           y: y,
-          pulseAngle: (i + j) * 0.4,
-          glowIntensity: 0.15 + Math.random() * 0.15
+          isLetter: isC,
+          pulseAngle: (i + j) * 0.3,
+          glowIntensity: isC ? 0.75 : 0.12
         });
       }
     }
@@ -66,12 +107,12 @@ function initGridCanvas() {
     mouse.y = -1000;
   });
 
-  function animate(time) {
+  function animate() {
     ctx.clearRect(0, 0, width, height);
 
-    // Draw background subtle radial glow
-    const bgGlow = ctx.createRadialGradient(width / 2, height / 2, 10, width / 2, height / 2, Math.max(width, height) / 1.2);
-    bgGlow.addColorStop(0, 'rgba(212, 175, 55, 0.05)');
+    // Subtle background vignette
+    const bgGlow = ctx.createRadialGradient(width / 2, height / 2, 20, width / 2, height / 2, Math.max(width, height) / 1.1);
+    bgGlow.addColorStop(0, 'rgba(223, 183, 108, 0.04)');
     bgGlow.addColorStop(1, 'rgba(7, 7, 9, 0)');
     ctx.fillStyle = bgGlow;
     ctx.fillRect(0, 0, width, height);
@@ -83,20 +124,25 @@ function initGridCanvas() {
 
       let offsetX = 0;
       let offsetY = 0;
-      let scale = 1;
+      let scale = dot.isLetter ? 1.4 : 1.0;
       let alpha = dot.glowIntensity;
 
-      dot.pulseAngle += 0.03;
+      dot.pulseAngle += 0.025;
       const pulse = Math.sin(dot.pulseAngle) * 0.5 + 0.5;
-      alpha += pulse * 0.15;
+
+      if (dot.isLetter) {
+        alpha += pulse * 0.25;
+      } else {
+        alpha += pulse * 0.08;
+      }
 
       if (dist < mouse.radius) {
         const force = (1 - dist / mouse.radius);
         const angle = Math.atan2(dy, dx);
-        offsetX = -Math.cos(angle) * force * 25;
-        offsetY = -Math.sin(angle) * force * 25;
-        scale = 1 + force * 1.5;
-        alpha = 0.5 + force * 0.5;
+        offsetX = -Math.cos(angle) * force * 20;
+        offsetY = -Math.sin(angle) * force * 20;
+        scale = scale * (1 + force * 1.3);
+        alpha = Math.min(1, alpha + force * 0.6);
       }
 
       dot.x = dot.baseX + offsetX;
@@ -105,14 +151,14 @@ function initGridCanvas() {
       ctx.beginPath();
       ctx.arc(dot.x, dot.y, baseRadius * scale, 0, Math.PI * 2);
 
-      if (dist < mouse.radius) {
-        ctx.fillStyle = `rgba(247, 231, 160, ${alpha})`;
-        ctx.shadowColor = 'rgba(212, 175, 55, 0.8)';
-        ctx.shadowBlur = 12;
+      if (dot.isLetter || dist < mouse.radius) {
+        ctx.fillStyle = `rgba(245, 228, 181, ${alpha})`;
+        ctx.shadowColor = 'rgba(223, 183, 108, 0.9)';
+        ctx.shadowBlur = dot.isLetter ? 10 : 14;
       } else {
-        ctx.fillStyle = `rgba(212, 175, 55, ${alpha})`;
-        ctx.shadowColor = 'rgba(212, 175, 55, 0.3)';
-        ctx.shadowBlur = 4;
+        ctx.fillStyle = `rgba(223, 183, 108, ${alpha})`;
+        ctx.shadowColor = 'rgba(223, 183, 108, 0.2)';
+        ctx.shadowBlur = 3;
       }
 
       ctx.fill();
