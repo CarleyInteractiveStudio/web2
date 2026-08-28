@@ -167,6 +167,18 @@ body {
   padding: 70px 20px;
 }
 
+/* Solar Energy Section Slideshow - FULL BLEED */
+.solar-section {
+  min-height: 520px;
+  background: transparent;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding: 80px 20px;
+  margin-top: 40px;
+}
+
 .bg-rotator {
   position: absolute;
   top: 0;
@@ -176,7 +188,7 @@ body {
   z-index: 1;
 }
 
-.bg-slide {
+.bg-slide, .solar-slide {
   position: absolute;
   top: 0;
   left: 0;
@@ -196,7 +208,25 @@ body {
   background-image: url('images/bg_web_app_2.jpg');
 }
 
-.bg-slide.active {
+.solar-slide-1 {
+  background-image: url('images/solar_1.webp');
+}
+
+.solar-slide-2 {
+  background-image: url('images/solar_2.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: #0b0b0f;
+}
+
+.solar-slide-3 {
+  background-image: url('images/solar_3.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: #0b0b0f;
+}
+
+.bg-slide.active, .solar-slide.active {
   opacity: 0.85; /* Full high opacity so photo fills completely and vibrantly */
 }
 
@@ -206,8 +236,12 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(7, 7, 9, 0.4) 0%, rgba(7, 7, 9, 0.2) 50%, rgba(7, 7, 9, 0.6) 100%);
+  background: linear-gradient(180deg, rgba(7, 7, 9, 0.45) 0%, rgba(7, 7, 9, 0.25) 50%, rgba(7, 7, 9, 0.65) 100%);
   z-index: 2;
+}
+
+.solar-overlay {
+  background: linear-gradient(180deg, rgba(7, 7, 9, 0.65) 0%, rgba(7, 7, 9, 0.45) 50%, rgba(7, 7, 9, 0.75) 100%);
 }
 
 .section-content-relative {

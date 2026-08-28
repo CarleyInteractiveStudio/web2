@@ -3,6 +3,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   initGentleParticleCanvas();
   initBackgroundRotator();
+  initSolarBackgroundRotator();
   updateFooterYear();
 });
 
@@ -33,6 +34,26 @@ function initBackgroundRotator() {
       currentSlide = 1;
     }
   }, 10000); // 10 seconds
+}
+
+// Alternating 3-Image Background Rotator for Solar Energy section
+function initSolarBackgroundRotator() {
+  const slides = [
+    document.querySelector('.solar-slide-1'),
+    document.querySelector('.solar-slide-2'),
+    document.querySelector('.solar-slide-3')
+  ];
+
+  if (!slides[0] || !slides[1] || !slides[2]) return;
+
+  let currentIndex = 0;
+  slides[0].classList.add('active');
+
+  setInterval(() => {
+    slides[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % slides.length;
+    slides[currentIndex].classList.add('active');
+  }, 6000); // 6 seconds per slide for smooth rotation
 }
 
 // Gentle, smooth drifting background particle canvas ("poquito a poquito")
