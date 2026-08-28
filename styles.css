@@ -212,20 +212,6 @@ body {
   background-image: url('images/solar_1.webp');
 }
 
-.solar-slide-2 {
-  background-image: url('images/solar_2.webp');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-color: #0b0b0f;
-}
-
-.solar-slide-3 {
-  background-image: url('images/solar_3.webp');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-color: #0b0b0f;
-}
-
 .bg-slide.active, .solar-slide.active {
   opacity: 0.85; /* Full high opacity so photo fills completely and vibrantly */
 }
