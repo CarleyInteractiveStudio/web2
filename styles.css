@@ -362,7 +362,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.95);
+  background: #ffffff;
   border: 1px solid var(--border-gold);
   border-radius: var(--radius-md);
   padding: 24px 20px;
@@ -373,8 +373,7 @@ body {
 
 .brand-logo-card:hover {
   transform: translateY(-5px);
-  background: #ffffff;
-  box-shadow: 0 10px 30px rgba(223, 183, 108, 0.4);
+  box-shadow: 0 10px 30px rgba(223, 183, 108, 0.45);
 }
 
 .brand-logo-img {
