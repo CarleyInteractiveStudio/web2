@@ -147,13 +147,20 @@
       </div>
     </section>
 
-    <!-- 2. Video Juegos y Modelado 3D -->
-    <section id="video-juegos" class="content-section highlight-box">
-      <div class="section-label">Entretenimiento & Modelado Tridimensional</div>
-      <h2 class="section-title">Desarrollo de Video Juegos & <span class="gold-text">Modelado 3D</span></h2>
+    <!-- 2. Video Juegos y Modelado 3D con Avión de Papel Interactivo y Escena 4D Día/Noche -->
+    <section id="video-juegos" class="content-section highlight-box three-section">
+      <div class="section-label">Equipo Profesional en Modelado 3D & Videojuegos</div>
+      <h2 class="section-title">Crea tus <span class="gold-text">videojuegos y modelos 3D</span></h2>
       <p class="section-text">
-        Te desarrollamos tu propio video juego tanto para web como para móvil y escritorio. Te creamos modelos 3D realistas para que tus video juegos tengan un mejor impacto hacia su público objetivo.
+        Tenemos un equipo de profesionales en modelado 3D. Crea tus videojuegos y modelos 3D con nuestro equipo de expertos; hacemos una realidad cada una de tus imaginaciones.
       </p>
+
+      <!-- Interactive 3D Canvas Container -->
+      <div id="paperAirplane3dContainer" class="threejs-canvas-container">
+        <div class="airplane-instruction-badge">
+          ✨ Haz clic en cualquier lugar de la escena para enviar el avión de papel en 3D
+        </div>
+      </div>
     </section>
 
     <!-- 3. Paneles Solares & Inversores/Baterías -->
@@ -252,6 +259,9 @@
     </div>
   </footer>
 
+  <!-- Three.js and OBJLoader CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
