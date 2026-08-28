@@ -1,7 +1,7 @@
-// Carley Interactive Moving Particle Grid & Letter "C" Animation + Background Rotator
+// Carley Interactive Moving Particle Grid & Background Rotator
 
 document.addEventListener('DOMContentLoaded', () => {
-  initMovingParticleCanvas();
+  initGentleParticleCanvas();
   initBackgroundRotator();
   updateFooterYear();
 });
@@ -35,8 +35,8 @@ function initBackgroundRotator() {
   }, 10000); // 10 seconds
 }
 
-// Dynamic Moving Particle Canvas forming Letter "C"
-function initMovingParticleCanvas() {
+// Gentle, smooth drifting background particle canvas ("poquito a poquito")
+function initGentleParticleCanvas() {
   const canvas = document.getElementById('dotsCanvas');
   if (!canvas) return;
 
@@ -44,8 +44,8 @@ function initMovingParticleCanvas() {
   let width, height;
   let particles = [];
 
-  const spacing = 28;
-  const baseRadius = 2.4;
+  const spacing = 32;
+  const baseRadius = 2.2;
   let mouse = { x: -1000, y: -1000, radius: 170 };
 
   function resize() {
@@ -53,23 +53,6 @@ function initMovingParticleCanvas() {
     width = canvas.width = parent.clientWidth;
     height = canvas.height = parent.clientHeight;
     createParticles();
-  }
-
-  // Check if target normalized coordinates (normX, normY) form letter "C"
-  function isLetterC(normX, normY) {
-    const cx = 0.5;
-    const cy = 0.5;
-    const dx = normX - cx;
-    const dy = normY - cy;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-
-    // Ring bounds for C
-    const ringMatch = dist >= 0.17 && dist <= 0.32;
-    // Angle gap on right (-40 to +40 degrees)
-    const angle = Math.atan2(dy, dx);
-    const notGap = (angle < -Math.PI / 4.2) || (angle > Math.PI / 4.2);
-
-    return ringMatch && notGap;
   }
 
   function createParticles() {
@@ -82,26 +65,14 @@ function initMovingParticleCanvas() {
         const gridX = i * spacing;
         const gridY = j * spacing;
 
-        const normX = gridX / width;
-        const normY = gridY / height;
-
-        const isC = isLetterC(normX, normY);
-
-        // Random initial position offset for dynamic movement into target
-        const randomOffsetX = (Math.random() - 0.5) * 60;
-        const randomOffsetY = (Math.random() - 0.5) * 60;
-
         particles.push({
-          targetX: gridX,
-          targetY: gridY,
-          x: gridX + randomOffsetX,
-          y: gridY + randomOffsetY,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
-          isLetter: isC,
+          baseX: gridX,
+          baseY: gridY,
+          x: gridX,
+          y: gridY,
           phase: Math.random() * Math.PI * 2,
-          speed: 0.02 + Math.random() * 0.02,
-          glowIntensity: isC ? 0.8 : 0.15
+          driftSpeed: 0.008 + Math.random() * 0.012, // gentle slow drift
+          driftRadius: 6 + Math.random() * 8
         });
       }
     }
@@ -124,25 +95,24 @@ function initMovingParticleCanvas() {
 
   function animate() {
     ctx.clearRect(0, 0, width, height);
-    time += 0.02;
+    time += 0.015;
 
-    // Background radial subtle glow centered
+    // Background radial subtle glow
     const bgGlow = ctx.createRadialGradient(width / 2, height / 2, 20, width / 2, height / 2, Math.max(width, height) / 1.1);
-    bgGlow.addColorStop(0, 'rgba(223, 183, 108, 0.05)');
+    bgGlow.addColorStop(0, 'rgba(223, 183, 108, 0.04)');
     bgGlow.addColorStop(1, 'rgba(7, 7, 9, 0)');
     ctx.fillStyle = bgGlow;
     ctx.fillRect(0, 0, width, height);
 
     particles.forEach((p) => {
-      // Dynamic moving oscillation towards target + wave float
-      p.phase += p.speed;
-      const waveX = Math.cos(p.phase + time) * (p.isLetter ? 4 : 2);
-      const waveY = Math.sin(p.phase + time) * (p.isLetter ? 4 : 2);
+      // Gentle smooth drifting oscillation ("poquito a poquito")
+      p.phase += p.driftSpeed;
+      const driftX = Math.sin(p.phase + time) * p.driftRadius;
+      const driftY = Math.cos(p.phase * 0.8 + time) * p.driftRadius;
 
-      const targetX = p.targetX + waveX;
-      const targetY = p.targetY + waveY;
+      const targetX = p.baseX + driftX;
+      const targetY = p.baseY + driftY;
 
-      // Ease current position towards dynamic target
       p.x += (targetX - p.x) * 0.05;
       p.y += (targetY - p.y) * 0.05;
 
@@ -153,30 +123,27 @@ function initMovingParticleCanvas() {
 
       let renderX = p.x;
       let renderY = p.y;
-      let scale = p.isLetter ? 1.45 : 0.95;
-      let alpha = p.glowIntensity;
+      let scale = 1.0;
+      let alpha = 0.18 + Math.sin(p.phase) * 0.08;
 
       if (dist < mouse.radius) {
         const force = (1 - dist / mouse.radius);
         const angle = Math.atan2(dy, dx);
-        renderX -= Math.cos(angle) * force * 24;
-        renderY -= Math.sin(angle) * force * 24;
-        scale *= (1 + force * 1.4);
-        alpha = Math.min(1, alpha + force * 0.65);
+        renderX -= Math.cos(angle) * force * 22;
+        renderY -= Math.sin(angle) * force * 22;
+        scale = 1 + force * 1.5;
+        alpha = Math.min(1, alpha + force * 0.7);
       }
-
-      const pulse = Math.sin(p.phase) * 0.25;
-      alpha += pulse * 0.15;
 
       ctx.beginPath();
       ctx.arc(renderX, renderY, baseRadius * scale, 0, Math.PI * 2);
 
-      if (p.isLetter || dist < mouse.radius) {
-        ctx.fillStyle = `rgba(245, 228, 181, ${Math.min(1, alpha)})`;
+      if (dist < mouse.radius) {
+        ctx.fillStyle = `rgba(245, 228, 181, ${alpha})`;
         ctx.shadowColor = 'rgba(223, 183, 108, 0.9)';
-        ctx.shadowBlur = p.isLetter ? 12 : 16;
+        ctx.shadowBlur = 12;
       } else {
-        ctx.fillStyle = `rgba(223, 183, 108, ${Math.max(0.08, alpha)})`;
+        ctx.fillStyle = `rgba(223, 183, 108, ${alpha})`;
         ctx.shadowColor = 'rgba(223, 183, 108, 0.2)';
         ctx.shadowBlur = 3;
       }
