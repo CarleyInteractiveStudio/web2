@@ -360,13 +360,13 @@ body {
 
 .brand-logo-card {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.94);
+  background: rgba(255, 255, 255, 0.95);
   border: 1px solid var(--border-gold);
   border-radius: var(--radius-md);
-  padding: 18px 14px;
+  padding: 24px 20px;
+  height: 110px;
   transition: var(--transition-smooth);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
@@ -378,18 +378,10 @@ body {
 }
 
 .brand-logo-img {
-  max-height: 55px;
+  max-height: 65px;
   width: auto;
   max-width: 100%;
   object-fit: contain;
-  margin-bottom: 12px;
-}
-
-.brand-logo-caption {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #111115;
-  text-align: center;
 }
 
 /* Why Choose Us List */
