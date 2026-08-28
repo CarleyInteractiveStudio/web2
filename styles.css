@@ -350,22 +350,46 @@ body {
   line-height: 1.7;
 }
 
-/* Solar Brand Tags */
-.brand-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 24px;
+/* Solar Brand Logos Grid */
+.brand-logos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 32px;
 }
 
-.brand-tag {
-  background: rgba(223, 183, 108, 0.12);
+.brand-logo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.94);
   border: 1px solid var(--border-gold);
-  color: var(--gold-light);
-  padding: 8px 18px;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 0.9rem;
+  border-radius: var(--radius-md);
+  padding: 18px 14px;
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.brand-logo-card:hover {
+  transform: translateY(-5px);
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(223, 183, 108, 0.4);
+}
+
+.brand-logo-img {
+  max-height: 55px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.brand-logo-caption {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #111115;
+  text-align: center;
 }
 
 /* Why Choose Us List */
