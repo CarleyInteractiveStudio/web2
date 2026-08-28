@@ -388,37 +388,27 @@ body {
   border-radius: var(--radius-lg);
   position: relative;
   overflow: hidden;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  padding: 60px 40px;
 }
 
 .threejs-canvas-container {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 480px;
-  position: relative;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  margin-top: 24px;
-  border: 1px solid var(--border-gold);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  height: 100%;
+  z-index: 1;
   background: #050508;
-  cursor: crosshair;
 }
 
-.airplane-instruction-badge {
-  position: absolute;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  background: rgba(15, 15, 20, 0.85);
-  border: 1px solid var(--border-gold);
-  color: var(--gold-light);
-  padding: 8px 18px;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 600;
+.three-section-content {
+  position: relative;
+  z-index: 2;
   pointer-events: none;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(8px);
+  max-width: 800px;
 }
 
 /* Why Choose Us List - Quote / Big Bullet Point Style */

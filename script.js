@@ -227,14 +227,14 @@ function initPaperAirplane3DScene() {
 
   // Scene setup
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x070709);
+  scene.background = new THREE.Color(0x050508);
 
   // Camera setup
-  const width = container.clientWidth;
-  const height = container.clientHeight || 480;
+  let width = container.clientWidth;
+  let height = container.clientHeight || 520;
   const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-  camera.position.set(0, 8, 22);
-  camera.lookAt(0, 0, 0);
+  camera.position.set(0, 3.5, 20);
+  camera.lookAt(0, 1.5, 0);
 
   // Renderer setup
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -244,76 +244,88 @@ function initPaperAirplane3DScene() {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   container.appendChild(renderer.domElement);
 
-  // Ambient Light (subtle)
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.25);
+  // Ambient Light
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
   scene.add(ambientLight);
 
-  // Sun/Moon Light (Day/Night cycle light)
-  const sunLight = new THREE.DirectionalLight(0xffdf9e, 1.8);
-  sunLight.position.set(10, 20, 10);
+  // Sun/Moon Light (4D Day/Night cycle light)
+  const sunLight = new THREE.DirectionalLight(0xffdf9e, 2.0);
+  sunLight.position.set(12, 22, 8);
   sunLight.castShadow = true;
   sunLight.shadow.mapSize.width = 1024;
   sunLight.shadow.mapSize.height = 1024;
   scene.add(sunLight);
 
-  // Window Light Glow helper
-  const windowLightGlow = new THREE.PointLight(0xdfb76c, 1.2, 30);
-  windowLightGlow.position.set(-14, 4, -8);
+  // Window Glow Light
+  const windowLightGlow = new THREE.PointLight(0xdfb76c, 1.5, 35);
+  windowLightGlow.position.set(0, 2, -11);
   scene.add(windowLightGlow);
 
-  // Build Room Scene with Window
+  // Sky Backdrop Plane (Visible through the window)
+  const skyMat = new THREE.MeshBasicMaterial({ color: 0xdfb76c, side: THREE.DoubleSide });
+  const skyPlane = new THREE.Mesh(new THREE.PlaneGeometry(24, 16), skyMat);
+  skyPlane.position.set(0, 3, -13.5);
+  scene.add(skyPlane);
+
+  // Room Architecture
   const roomGroup = new THREE.Group();
 
   // Floor
-  const floorMat = new THREE.MeshStandardMaterial({ color: 0x16161f, roughness: 0.6, metalness: 0.2 });
-  const floor = new THREE.Mesh(new THREE.BoxGeometry(32, 0.4, 24), floorMat);
+  const floorMat = new THREE.MeshStandardMaterial({ color: 0x12121a, roughness: 0.5, metalness: 0.3 });
+  const floor = new THREE.Mesh(new THREE.BoxGeometry(36, 0.4, 28), floorMat);
   floor.position.y = -6;
   floor.receiveShadow = true;
   roomGroup.add(floor);
 
-  // Back Wall with Window opening effect
-  const wallMat = new THREE.MeshStandardMaterial({ color: 0x0e0e15, roughness: 0.8 });
-  const backWallLeft = new THREE.Mesh(new THREE.BoxGeometry(12, 16, 0.4), wallMat);
-  backWallLeft.position.set(-10, 2, -12);
+  // Back Wall with Architectural Window Opening
+  const wallMat = new THREE.MeshStandardMaterial({ color: 0x09090e, roughness: 0.8 });
+  const backWallLeft = new THREE.Mesh(new THREE.BoxGeometry(13, 16, 0.4), wallMat);
+  backWallLeft.position.set(-11.5, 2, -12);
   backWallLeft.receiveShadow = true;
   roomGroup.add(backWallLeft);
 
-  const backWallRight = new THREE.Mesh(new THREE.BoxGeometry(12, 16, 0.4), wallMat);
-  backWallRight.position.set(10, 2, -12);
+  const backWallRight = new THREE.Mesh(new THREE.BoxGeometry(13, 16, 0.4), wallMat);
+  backWallRight.position.set(11.5, 2, -12);
   backWallRight.receiveShadow = true;
   roomGroup.add(backWallRight);
 
-  const backWallTop = new THREE.Mesh(new THREE.BoxGeometry(8, 5, 0.4), wallMat);
+  const backWallTop = new THREE.Mesh(new THREE.BoxGeometry(10, 5, 0.4), wallMat);
   backWallTop.position.set(0, 7.5, -12);
   roomGroup.add(backWallTop);
 
-  const backWallBottom = new THREE.Mesh(new THREE.BoxGeometry(8, 4, 0.4), wallMat);
+  const backWallBottom = new THREE.Mesh(new THREE.BoxGeometry(10, 4, 0.4), wallMat);
   backWallBottom.position.set(0, -4, -12);
   roomGroup.add(backWallBottom);
 
-  // Window Frame (Golden frame around back window)
-  const windowFrameMat = new THREE.MeshStandardMaterial({ color: 0xdfb76c, metalness: 0.8, roughness: 0.3 });
-  const windowFrame = new THREE.Mesh(new THREE.BoxGeometry(7.6, 7.2, 0.6), windowFrameMat);
-  windowFrame.position.set(0, 1.6, -11.9);
-  roomGroup.add(windowFrame);
+  // Golden Architectural Window Frame with Mullions / Crossbars
+  const windowFrameMat = new THREE.MeshStandardMaterial({ color: 0xdfb76c, metalness: 0.85, roughness: 0.2 });
+  const outerFrame = new THREE.Mesh(new THREE.BoxGeometry(10.2, 7.2, 0.5), windowFrameMat);
+  outerFrame.position.set(0, 1.75, -11.9);
+  roomGroup.add(outerFrame);
 
-  // Window Glass
+  // Center Vertical Mullion
+  const vMullion = new THREE.Mesh(new THREE.BoxGeometry(0.3, 6.8, 0.3), windowFrameMat);
+  vMullion.position.set(0, 1.75, -11.7);
+  roomGroup.add(vMullion);
+
+  // Center Horizontal Mullion
+  const hMullion = new THREE.Mesh(new THREE.BoxGeometry(9.6, 0.3, 0.3), windowFrameMat);
+  hMullion.position.set(0, 1.75, -11.7);
+  roomGroup.add(hMullion);
+
+  // High-Quality Translucent Physical Glass
   const glassMat = new THREE.MeshPhysicalMaterial({
-    color: 0x88ccff,
+    color: 0xaad8ff,
     transparent: true,
-    opacity: 0.35,
-    roughness: 0.1,
-    transmission: 0.9
+    opacity: 0.3,
+    roughness: 0.05,
+    metalness: 0.1,
+    transmission: 0.9,
+    reflectivity: 0.8
   });
-  const windowGlass = new THREE.Mesh(new THREE.PlaneGeometry(7.2, 6.8), glassMat);
-  windowGlass.position.set(0, 1.6, -11.5);
+  const windowGlass = new THREE.Mesh(new THREE.PlaneGeometry(9.6, 6.8), glassMat);
+  windowGlass.position.set(0, 1.75, -11.6);
   roomGroup.add(windowGlass);
-
-  // Side Wall Left
-  const sideWallLeft = new THREE.Mesh(new THREE.BoxGeometry(0.4, 16, 24), wallMat);
-  sideWallLeft.position.set(-16, 2, 0);
-  sideWallLeft.receiveShadow = true;
-  roomGroup.add(sideWallLeft);
 
   scene.add(roomGroup);
 
@@ -328,9 +340,9 @@ function initPaperAirplane3DScene() {
     loader.load('assets/paper_airplane.obj', (obj) => {
       const goldAirplaneMat = new THREE.MeshStandardMaterial({
         color: 0xffe89e,
-        metalness: 0.7,
-        roughness: 0.2,
-        emissive: 0x44300e,
+        metalness: 0.8,
+        roughness: 0.15,
+        emissive: 0x3d2b09,
         side: THREE.DoubleSide
       });
 
@@ -342,13 +354,13 @@ function initPaperAirplane3DScene() {
         }
       });
 
-      // Center and scale model
-      obj.scale.set(60, 60, 60);
+      // Scale model
+      obj.scale.set(65, 65, 65);
       obj.rotation.y = Math.PI;
       paperAirplane = obj;
       airplaneGroup.add(paperAirplane);
     }, undefined, (err) => {
-      console.warn('Could not load OBJ paper airplane, creating fallback geometry', err);
+      console.warn('Could not load OBJ paper airplane, using fallback geometry', err);
       createFallbackAirplane();
     });
   } else {
@@ -358,128 +370,107 @@ function initPaperAirplane3DScene() {
   function createFallbackAirplane() {
     const shape = new THREE.BufferGeometry();
     const vertices = new Float32Array([
-      0, 0, 2,   -1.5, 0, -2,   0, 0.5, -1.5,
-      0, 0, 2,   0, 0.5, -1.5,   1.5, 0, -2,
-      0, 0, 2,   0, -0.6, -1.5,  -1.5, 0, -2,
-      0, 0, 2,   1.5, 0, -2,     0, -0.6, -1.5
+      0, 0, 2.2,   -1.6, 0, -2,   0, 0.6, -1.5,
+      0, 0, 2.2,   0, 0.6, -1.5,   1.6, 0, -2,
+      0, 0, 2.2,   0, -0.6, -1.5,  -1.6, 0, -2,
+      0, 0, 2.2,   1.6, 0, -2,     0, -0.6, -1.5
     ]);
     shape.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
     shape.computeVertexNormals();
 
-    const mat = new THREE.MeshStandardMaterial({ color: 0xdfb76c, metalness: 0.8, roughness: 0.2, side: THREE.DoubleSide });
+    const mat = new THREE.MeshStandardMaterial({ color: 0xdfb76c, metalness: 0.85, roughness: 0.15, side: THREE.DoubleSide });
     paperAirplane = new THREE.Mesh(shape, mat);
-    paperAirplane.scale.set(1.5, 1.5, 1.5);
+    paperAirplane.scale.set(1.6, 1.6, 1.6);
     airplaneGroup.add(paperAirplane);
   }
 
-  // Airplane Motion variables
-  let angle = 0;
-  const orbitRadius = 6.5;
-  let customTarget = null;
-  let isSeekingCustom = false;
-  let seekProgress = 0;
-  let startPos = new THREE.Vector3();
-  let targetPos = new THREE.Vector3();
+  // Real Aerodynamic Flight Physics Variables
+  let flightTime = 0;
 
-  // Handle Raycasting click to steer airplane
-  const raycaster = new THREE.Raycaster();
-  const mouseVec = new THREE.Vector2();
+  // Function to evaluate smooth 3D trajectory path
+  function getAirplanePath(t) {
+    // Weave around 3D room space:
+    // X loops wide (-13 to +13)
+    // Y climbs and dives (-1 to +4.5)
+    // Z traverses from behind text (-7) to in front of text (+7)
+    const x = Math.sin(t * 0.6) * 12.5 + Math.cos(t * 0.3) * 2;
+    const y = Math.sin(t * 1.2) * 2.2 + 1.8;
+    const z = Math.sin(t * 0.4) * 8.5;
+    return new THREE.Vector3(x, y, z);
+  }
 
-  container.addEventListener('click', (e) => {
-    const rect = container.getBoundingClientRect();
-    mouseVec.x = ((e.clientX - rect.left) / container.clientWidth) * 2 - 1;
-    mouseVec.y = -((e.clientY - rect.top) / container.clientHeight) * 2 + 1;
-
-    raycaster.setFromCamera(mouseVec, camera);
-    const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
-    const clickPoint = new THREE.Vector3();
-    raycaster.ray.intersectPlane(plane, clickPoint);
-
-    if (clickPoint) {
-      // Clamp target within scene view
-      clickPoint.x = Math.max(-10, Math.min(10, clickPoint.x));
-      clickPoint.y = Math.max(-2, Math.min(6, clickPoint.y));
-      clickPoint.z = Math.max(-4, Math.min(6, clickPoint.z));
-
-      startPos.copy(airplaneGroup.position);
-      targetPos.copy(clickPoint);
-      isSeekingCustom = true;
-      seekProgress = 0;
-    }
-  });
-
-  // Animation Loop for 4D Day/Night Cycle & Airplane Orbit
+  // Animation Loop for 4D Day/Night Cycle & Realistic Flight Curves
   let dayTime = 0;
+  let currentQuat = new THREE.Quaternion();
 
   function animate3D() {
     requestAnimationFrame(animate3D);
 
-    // 4D Day/Night lighting cycle
-    dayTime += 0.006;
-    const sunX = Math.cos(dayTime) * 18;
-    const sunY = Math.sin(dayTime) * 16 + 4;
+    // 4D Day/Night lighting & Sky cycle
+    dayTime += 0.005;
+    const sunX = Math.cos(dayTime) * 20;
+    const sunY = Math.sin(dayTime) * 18;
     const sunZ = Math.sin(dayTime * 0.7) * 12;
 
     sunLight.position.set(sunX, sunY, sunZ);
 
-    // Dynamic sky/light color tinting
     const isDay = sunY > 0;
-    const lightIntensity = Math.max(0.15, Math.sin(dayTime) * 1.8);
+    const lightIntensity = Math.max(0.2, Math.sin(dayTime) * 2.0);
     sunLight.intensity = lightIntensity;
 
     if (isDay) {
-      sunLight.color.setHSL(0.1, 0.8, 0.6); // Warm golden daytime
+      sunLight.color.setHSL(0.1, 0.85, 0.65); // Warm golden daytime
       windowLightGlow.color.setHSL(0.1, 0.9, 0.6);
-      scene.background.setHex(0x0a0b10);
+      skyMat.color.setHex(0xdfb76c);
+      scene.background.setHex(0x07070a);
     } else {
-      sunLight.color.setHSL(0.65, 0.6, 0.3); // Deep night blue
-      windowLightGlow.color.setHSL(0.12, 0.9, 0.4);
-      scene.background.setHex(0x040407);
+      sunLight.color.setHSL(0.65, 0.65, 0.35); // Deep night blue
+      windowLightGlow.color.setHSL(0.12, 0.8, 0.35);
+      skyMat.color.setHex(0x0e182b);
+      scene.background.setHex(0x040406);
     }
 
-    // Airplane trajectory update
-    if (isSeekingCustom) {
-      seekProgress += 0.02;
-      airplaneGroup.position.lerpVectors(startPos, targetPos, seekProgress);
+    // Aerodynamic Flight Physics Update
+    flightTime += 0.012;
 
-      // Point towards target direction
-      const dir = new THREE.Vector3().subVectors(targetPos, startPos).normalize();
-      if (dir.length() > 0.001) {
-        const targetRotY = Math.atan2(dir.x, dir.z);
-        airplaneGroup.rotation.y += (targetRotY - airplaneGroup.rotation.y) * 0.1;
-        airplaneGroup.rotation.z = -dir.x * 0.4;
-        airplaneGroup.rotation.x = dir.y * 0.4;
-      }
+    const pos = getAirplanePath(flightTime);
+    const futurePos = getAirplanePath(flightTime + 0.05);
+    const pastPos = getAirplanePath(flightTime - 0.05);
 
-      if (seekProgress >= 1) {
-        isSeekingCustom = false;
-        // Resume circle angle from current position
-        angle = Math.atan2(airplaneGroup.position.z, airplaneGroup.position.x);
-      }
-    } else {
-      // Smooth orbital flight pattern
-      angle += 0.018;
-      const nextX = Math.cos(angle) * orbitRadius;
-      const nextZ = Math.sin(angle) * orbitRadius;
-      const nextY = Math.sin(angle * 2) * 1.2 + 1.5;
+    // Update 3D position
+    airplaneGroup.position.copy(pos);
 
-      const currentPos = airplaneGroup.position.clone();
-      const nextPos = new THREE.Vector3(nextX, nextY, nextZ);
+    // Calculate velocity vectors for smooth yaw, pitch, and banking (roll)
+    const vel = new THREE.Vector3().subVectors(futurePos, pos);
+    const pastVel = new THREE.Vector3().subVectors(pos, pastPos);
 
-      airplaneGroup.position.copy(nextPos);
+    const speed = vel.length();
+    if (speed > 0.0001) {
+      const dir = vel.clone().normalize();
 
-      // Calculate smooth banking / heading rotation
-      const moveDir = new THREE.Vector3().subVectors(nextPos, currentPos).normalize();
-      const targetHeading = Math.atan2(moveDir.x, moveDir.z);
+      // Yaw (horizontal direction angle)
+      const yaw = Math.atan2(dir.x, dir.z);
 
-      airplaneGroup.rotation.y += (targetHeading - airplaneGroup.rotation.y) * 0.15;
-      airplaneGroup.rotation.z = -Math.sin(angle) * 0.35; // Bank wings into turns
-      airplaneGroup.rotation.x = Math.cos(angle * 2) * 0.15;
-    }
+      // Pitch (climb / dive angle)
+      const pitch = Math.atan2(dir.y, Math.sqrt(dir.x * dir.x + dir.z * dir.z));
 
-    // Gentle airplane self-propeller / floating roll oscillation
-    if (paperAirplane) {
-      paperAirplane.rotation.z = Math.sin(angle * 3) * 0.08;
+      // Turning curvature rate to calculate aerodynamic banking roll
+      const turnVector = new THREE.Vector3().subVectors(vel, pastVel);
+      // Cross product to check turn direction (left or right)
+      const turnCross = vel.clone().cross(pastVel);
+      const turnSign = turnCross.y >= 0 ? 1 : -1;
+      const turnRate = turnVector.length() * turnSign * 18;
+
+      // Bank wings into turns smoothly (aerodynamic roll)
+      const roll = Math.max(-0.65, Math.min(0.65, turnRate));
+
+      // Construct aerodynamic target rotation Euler
+      const targetEuler = new THREE.Euler(pitch, yaw, roll, 'YXZ');
+      const targetQuat = new THREE.Quaternion().setFromEuler(targetEuler);
+
+      // Slerp quaternion for butter-smooth rotational transition (no sharp snaps!)
+      currentQuat.slerp(targetQuat, 0.08);
+      airplaneGroup.quaternion.copy(currentQuat);
     }
 
     renderer.render(scene, camera);
@@ -487,11 +478,11 @@ function initPaperAirplane3DScene() {
 
   // Handle window resize
   window.addEventListener('resize', () => {
-    const newWidth = container.clientWidth;
-    const newHeight = container.clientHeight || 480;
-    camera.aspect = newWidth / newHeight;
+    width = container.clientWidth;
+    height = container.clientHeight || 520;
+    camera.aspect = width / height;
     camera.updateProjectionMatrix();
-    renderer.setSize(newWidth, newHeight);
+    renderer.setSize(width, height);
   });
 
   animate3D();
