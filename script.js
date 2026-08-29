@@ -419,6 +419,59 @@ function initPaperAirplane3DScene() {
     airplaneGroup.add(paperAirplane);
   }
 
+  // Wingtip Airflow / Vortex Trails (Flujos de aire en ambas puntas de las alas)
+  const maxTrailPoints = 35;
+  const leftTrailHistory = [];
+  const rightTrailHistory = [];
+
+  // Glowing golden airflow line materials for left and right wingtips
+  const trailMatLeft = new THREE.LineBasicMaterial({
+    color: 0xffea9f,
+    transparent: true,
+    opacity: 0.85
+  });
+  const trailMatRight = new THREE.LineBasicMaterial({
+    color: 0xffea9f,
+    transparent: true,
+    opacity: 0.85
+  });
+
+  const leftTrailGeo = new THREE.BufferGeometry();
+  const leftPositionsArray = new Float32Array(maxTrailPoints * 3);
+  leftTrailGeo.setAttribute('position', new THREE.BufferAttribute(leftPositionsArray, 3));
+  const leftTrailLine = new THREE.Line(leftTrailGeo, trailMatLeft);
+  scene.add(leftTrailLine);
+
+  const rightTrailGeo = new THREE.BufferGeometry();
+  const rightPositionsArray = new Float32Array(maxTrailPoints * 3);
+  rightTrailGeo.setAttribute('position', new THREE.BufferAttribute(rightPositionsArray, 3));
+  const rightTrailLine = new THREE.Line(rightTrailGeo, trailMatRight);
+  scene.add(rightTrailLine);
+
+  // Airflow Particles for aerodynamic vortex effect
+  const airflowParticlesGroup = new THREE.Group();
+  scene.add(airflowParticlesGroup);
+
+  const airflowParticles = [];
+  const particleMat = new THREE.MeshBasicMaterial({
+    color: 0xdfb76c,
+    transparent: true,
+    opacity: 0.7
+  });
+  const particleGeo = new THREE.SphereGeometry(0.06, 6, 6);
+
+  function spawnAirflowParticle(pos) {
+    if (airflowParticles.length > 50) return;
+    const mesh = new THREE.Mesh(particleGeo, particleMat.clone());
+    mesh.position.copy(pos);
+    mesh.position.x += (Math.random() - 0.5) * 0.1;
+    mesh.position.y += (Math.random() - 0.5) * 0.1;
+    mesh.position.z += (Math.random() - 0.5) * 0.1;
+    mesh.userData = { life: 0, maxLife: 30 + Math.random() * 20 };
+    airflowParticlesGroup.add(mesh);
+    airflowParticles.push(mesh);
+  }
+
   // Real Aerodynamic Flight Physics Variables
   let flightTime = 0;
 
@@ -473,6 +526,64 @@ function initPaperAirplane3DScene() {
       // Smooth quaternion interpolation to avoid snap
       currentQuat.slerp(targetQuat, 0.1);
       airplaneGroup.quaternion.copy(currentQuat);
+    }
+
+    // Wingtip Airflow / Vortex Trail Updates
+    const leftTipLocal = new THREE.Vector3(-1.35, 0.05, -0.3);
+    const rightTipLocal = new THREE.Vector3(1.35, 0.05, -0.3);
+
+    const leftTipWorld = leftTipLocal.applyMatrix4(airplaneGroup.matrixWorld);
+    const rightTipWorld = rightTipLocal.applyMatrix4(airplaneGroup.matrixWorld);
+
+    // Update trail history
+    leftTrailHistory.unshift(leftTipWorld.clone());
+    rightTrailHistory.unshift(rightTipWorld.clone());
+
+    if (leftTrailHistory.length > maxTrailPoints) leftTrailHistory.pop();
+    if (rightTrailHistory.length > maxTrailPoints) rightTrailHistory.pop();
+
+    // Update left wingtip trail line geometry
+    const leftPositions = leftTrailGeo.attributes.position.array;
+    for (let i = 0; i < maxTrailPoints; i++) {
+      const pt = leftTrailHistory[i] || leftTipWorld;
+      leftPositions[i * 3] = pt.x;
+      leftPositions[i * 3 + 1] = pt.y;
+      leftPositions[i * 3 + 2] = pt.z;
+    }
+    leftTrailGeo.attributes.position.needsUpdate = true;
+    leftTrailGeo.setDrawRange(0, leftTrailHistory.length);
+
+    // Update right wingtip trail line geometry
+    const rightPositions = rightTrailGeo.attributes.position.array;
+    for (let i = 0; i < maxTrailPoints; i++) {
+      const pt = rightTrailHistory[i] || rightTipWorld;
+      rightPositions[i * 3] = pt.x;
+      rightPositions[i * 3 + 1] = pt.y;
+      rightPositions[i * 3 + 2] = pt.z;
+    }
+    rightTrailGeo.attributes.position.needsUpdate = true;
+    rightTrailGeo.setDrawRange(0, rightTrailHistory.length);
+
+    // Spawn & update airflow vortex particles
+    if (Math.random() < 0.6) {
+      spawnAirflowParticle(leftTipWorld);
+      spawnAirflowParticle(rightTipWorld);
+    }
+
+    for (let i = airflowParticles.length - 1; i >= 0; i--) {
+      const p = airflowParticles[i];
+      p.userData.life++;
+      const lifeRatio = p.userData.life / p.userData.maxLife;
+
+      p.material.opacity = (1 - lifeRatio) * 0.75;
+      p.scale.setScalar((1 - lifeRatio * 0.5) * 1.0);
+
+      if (p.userData.life >= p.userData.maxLife) {
+        airflowParticlesGroup.remove(p);
+        p.geometry.dispose();
+        p.material.dispose();
+        airflowParticles.splice(i, 1);
+      }
     }
 
     renderer.render(scene, camera);
