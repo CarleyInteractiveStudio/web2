@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carley - Desarrollos Digitales, Apps, Modelado 3D & Paneles Solares</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Hero Section with Moving Particles Canvas -->
+  <section id="inicio" class="hero-section">
+    <div class="canvas-container">
+      <canvas id="dotsCanvas"></canvas>
+    </div>
+
+    <div class="hero-content">
+      <div class="brand-badge-hero">
+        <span class="gold-text-bold">CARLEY TECHNOLOGY</span> | Soluciones Digitales & Energía
+      </div>
+
+      <h1 class="hero-title">
+        Bienvenido a <span class="gold-text">Carley Technology</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Somos expertos en desarrollarte tecnología innovadora en tus <a href="#web-apps" class="hero-inline-link">App</a> e <a href="#video-juegos" class="hero-inline-link">video juegos</a>, también solucionamos sus problemas de <a href="#panelessolares" class="hero-inline-link">electricidad</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content Sections -->
+  <main class="main-container">
+
+    <!-- 1. Combined Web & Apps Section with 10s Alternating Background (Clear View without card bubbles) -->
+    <section id="web-apps" class="content-section web-apps-section">
+      <div id="web-app-bg-wrapper" class="bg-rotator">
+        <div class="bg-slide bg-slide-1"></div>
+        <div class="bg-slide bg-slide-2"></div>
+        <div class="bg-overlay"></div>
+      </div>
+
+      <div class="section-content-relative">
+        <div class="section-label">Soluciones Digitales & Apps Multiplataforma</div>
+        <h2 class="section-title">Desarrollo Web & Apps Móviles y de Escritorio</h2>
+        <p class="section-text main-hero-desc">
+          Si buscas crear un sitio web para tu negocio — sea gimnasio, restaurante, tienda o cualquier empresa — o si lo que buscas es una App, somos exactamente lo que necesitas. Desarrollamos aplicaciones nativas e híbridas multiplataforma listas para funcionar en todos los sistemas operativos principales: iOS, Android, Windows, Mac, Linux y Chrome.
+        </p>
+
+        <!-- Visual Central App Diagram pointing to platforms -->
+        <div class="platform-hub-container">
+          <div class="center-app-badge">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#dfb76c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+              <line x1="12" y1="18" x2="12.01" y2="18"/>
+            </svg>
+            <span class="app-hub-title">CARLEY APP HUB</span>
+          </div>
+
+          <div class="platform-arrows-grid">
+
+            <!-- iOS -->
+            <div class="platform-card">
+              <div class="arrow-indicator">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dfb76c" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+              </div>
+              <div class="platform-icon-box">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.32c.67-.82 1.12-1.96.99-3.1-.97.04-2.14.65-2.83 1.45-.62.72-1.16 1.88-1.01 3 .01 0 .04.01.07.01 1.08 0 2.19-.58 2.78-1.36z"/>
+                </svg>
+              </div>
+              <span class="platform-name">iOS (Apple)</span>
+            </div>
+
+            <!-- Android -->
+            <div class="platform-card">
+              <div class="arrow-indicator">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dfb76c" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+              </div>
+              <div class="platform-icon-box">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M6 18c0 .55.45 1 1 1h1v3c0 .55.45 1 1 1s1-.45 1-1v-3h4v3c0 .55.45 1 1 1s1-.45 1-1v-3h1c.55 0 1-.45 1-1V9H6v9zm10.5-11.25l1.45-2.51c.15-.26.06-.59-.2-.74-.26-.15-.59-.06-.74.2l-1.48 2.56C14.28 5.48 13.18 5.09 12 5.09s-2.28.39-3.53 1.17L6.99 3.7c-.15-.26-.48-.35-.74-.2-.26.15-.35.48-.2.74l1.45 2.51C5.12 7.89 3.5 10.27 3.5 13h17c0-2.73-1.62-5.11-3.99-6.25zM9 10c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm6 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
+                </svg>
+              </div>
+              <span class="platform-name">Android</span>
+            </div>
+
+            <!-- Windows -->
+            <div class="platform-card">
+              <div class="arrow-indicator">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dfb76c" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+              </div>
+              <div class="platform-icon-box">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M0 3.449L9.75 2.1v9.451H0m10.95-9.6L24 0v11.4H10.95M0 12.6h9.75v9.451L0 20.699M10.95 12.6H24V24l-13.05-1.851"/>
+                </svg>
+              </div>
+              <span class="platform-name">Windows</span>
+            </div>
+
+            <!-- Mac -->
+            <div class="platform-card">
+              <div class="arrow-indicator">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dfb76c" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+              </div>
+              <div class="platform-icon-box">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.32c.67-.82 1.12-1.96.99-3.1-.97.04-2.14.65-2.83 1.45-.62.72-1.16 1.88-1.01 3 .01 0 .04.01.07.01 1.08 0 2.19-.58 2.78-1.36z"/>
+                </svg>
+              </div>
+              <span class="platform-name">Mac</span>
+            </div>
+
+            <!-- Linux -->
+            <div class="platform-card">
+              <div class="arrow-indicator">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dfb76c" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+              </div>
+              <div class="platform-icon-box">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.33 2c-3.1 0-4.8 1.9-4.8 4.7 0 1.5.5 3.1.5 3.7 0 .5-.5 1-1.2 1.5C5.4 12.9 4 15 4 17.5c0 3 2.5 4.5 5.5 4.5.9 0 1.8-.2 2.5-.5.7.3 1.6.5 2.5.5 3 0 5.5-1.5 5.5-4.5 0-2.5-1.4-4.6-2.8-5.6-.7-.5-1.2-1-1.2-1.5 0-.6.5-2.2.5-3.7C16.5 3.9 14.8 2 11.7 2h.63zM12 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm-2.5 7.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm5 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+              </div>
+              <span class="platform-name">Linux</span>
+            </div>
+
+            <!-- Chrome -->
+            <div class="platform-card">
+              <div class="arrow-indicator">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dfb76c" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+              </div>
+              <div class="platform-icon-box">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 4.8a7.2 7.2 0 0 1 6.946 5.333H12V12h9.546c.035.394.054.793.054 1.2 0 5.302-4.298 9.6-9.6 9.6-5.302 0-9.6-4.298-9.6-9.6 0-5.186 4.108-9.412 9.255-9.595L12 4.8z"/>
+                  <circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2.2"/>
+                </svg>
+              </div>
+              <span class="platform-name">Chrome</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. Video Juegos y Modelado 3D con Avión de Papel Interactivo y Escena 4D Día/Noche -->
+    <section id="video-juegos" class="content-section highlight-box three-section">
+      <div id="paperAirplane3dContainer" class="threejs-canvas-container"></div>
+
+      <div class="section-content-relative three-section-content">
+        <div class="section-label">Equipo Profesional en Modelado 3D & Videojuegos</div>
+        <h2 class="section-title">Crea tus <span class="gold-text">videojuegos y modelos 3D</span></h2>
+        <p class="section-text main-hero-desc">
+          Tenemos un equipo de profesionales en modelado 3D. Crea tus videojuegos y modelos 3D con nuestro equipo de expertos; hacemos una realidad cada una de tus imaginaciones.
+        </p>
+      </div>
+    </section>
+
+    <!-- 3. Paneles Solares & Inversores/Baterías -->
+    <section id="panelessolares" class="content-section solar-section">
+      <div id="solar-bg-wrapper" class="bg-rotator">
+        <div class="solar-slide solar-slide-1 active"></div>
+        <div class="bg-overlay solar-overlay"></div>
+      </div>
+
+      <div class="section-content-relative">
+        <div class="section-label">Energía Solar & Sistemas Baterías/Inversores 24/7</div>
+        <h2 class="section-title">Energiza tu <span class="gold-text">Hogar</span></h2>
+
+        <p class="section-text main-hero-desc">
+          Si estás corto de energía, no tienes electricidad o se va a cada rato, ¡también somos vuestra solución! Con nuestros paneles de 600W - 730W de <strong>JA Solar</strong>, <strong>Jinko Solar</strong> y <strong>Just Solar</strong> llenarás tu hogar de energía de día, y con nuestras baterías e inversores de <strong>Felicity Solar</strong> obtendrás electricidad 24/7. Contáctanos en WhatsApp y obtén más información.
+        </p>
+
+        <div class="brand-logos-grid">
+          <div class="brand-logo-card">
+            <img src="images/ja_solar_logo.png" alt="JA Solar" class="brand-logo-img">
+          </div>
+          <div class="brand-logo-card">
+            <img src="images/jinko_solar_logo.jpg" alt="Jinko Solar" class="brand-logo-img">
+          </div>
+          <div class="brand-logo-card">
+            <img src="images/just_solar_logo.png" alt="Just Solar" class="brand-logo-img">
+          </div>
+          <div class="brand-logo-card">
+            <img src="images/felicity_logo.webp" alt="Felicity Solar (Baterías e Inversores)" class="brand-logo-img">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. ¿Por qué preferirnos? -->
+    <section id="porque-preferirnos" class="content-section">
+      <div class="section-label">Garantía & Confianza</div>
+      <h2 class="section-title">¿Por qué preferirnos en <span class="gold-text">Carley</span>?</h2>
+      <div class="reasons-list">
+        <div class="reason-quote-item">
+          <span class="big-gold-bullet"></span>
+          <div class="reason-content">
+            <h3>Soporte Técnico Continuo</h3>
+            <p>Ofrecemos soporte completo para todos nuestros productos digitales (Apps, sitios web y video juegos) para asegurarte tranquilidad constante.</p>
+          </div>
+        </div>
+
+        <div class="reason-quote-item">
+          <span class="big-gold-bullet"></span>
+          <div class="reason-content">
+            <h3>Garantía Total — Aquí no pierdes tu dinero</h3>
+            <p>Trabajamos con transparencia absoluta y contratos claros. Tu inversión está 100% protegida y garantizada con estándares de calidad superior.</p>
+          </div>
+        </div>
+
+        <div class="reason-quote-item">
+          <span class="big-gold-bullet"></span>
+          <div class="reason-content">
+            <h3>Entrega Puntual Garantizada</h3>
+            <p>Te entregamos tu proyecto en la fecha exacta acordada, o incluso antes de lo estipulado. Valoramos tu tiempo y el de tu negocio.</p>
+          </div>
+        </div>
+
+        <div class="reason-quote-item">
+          <span class="big-gold-bullet"></span>
+          <div class="reason-content">
+            <h3>Equipo Senior con Años de Experiencia</h3>
+            <p>Contamos con profesionales altamente calificados en tecnología de vanguardia y energía renovable listos para ofrecer soluciones efectivas.</p>
+          </div>
+        </div>
+
+        <div class="reason-quote-item">
+          <span class="big-gold-bullet"></span>
+          <div class="reason-content">
+            <h3>Atención Personalizada Directa</h3>
+            <p>Comunicación directa, rápida y amigable vía WhatsApp las 24 horas para responder tus preguntas y dar seguimiento a tu proyecto.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating Vibrating WhatsApp Action Button -->
+  <a href="https://wa.me/18094020439?text=Hola%20Carley,%20deseo%20más%20información%20sobre%20sus%20servicios" target="_blank" class="whatsapp-vibrate-btn" aria-label="Contactar en WhatsApp +18094020439">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+    </svg>
+    <span class="whatsapp-tooltip">¡Habla con nosotros! (+1 809 402 0439)</span>
+  </a>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© <span id="year"></span> <strong>Carley</strong>. Desarrollos Digitales & Soluciones Energéticas Premium.</p>
+    </div>
+  </footer>
+
+  <!-- Three.js, OBJLoader, and GLTFLoader CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
