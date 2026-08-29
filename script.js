@@ -245,23 +245,28 @@ function initPaperAirplane3DScene() {
   container.appendChild(renderer.domElement);
 
   // Ambient Light
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
   scene.add(ambientLight);
 
-  // Sun/Moon Light (4D Day/Night cycle light)
-  const sunLight = new THREE.DirectionalLight(0xffdf9e, 2.0);
-  sunLight.position.set(12, 22, 8);
+  // Fixed warm golden directional lighting (Static architectural lighting)
+  const sunLight = new THREE.DirectionalLight(0xffdf9e, 1.8);
+  sunLight.position.set(12, 18, 10);
   sunLight.castShadow = true;
   sunLight.shadow.mapSize.width = 1024;
   sunLight.shadow.mapSize.height = 1024;
   scene.add(sunLight);
+
+  // Additional fill light for wall logo & room elegance
+  const fillLight = new THREE.DirectionalLight(0xdfb76c, 1.2);
+  fillLight.position.set(-10, 10, 12);
+  scene.add(fillLight);
 
   // Window Glow Light
   const windowLightGlow = new THREE.PointLight(0xdfb76c, 1.5, 35);
   windowLightGlow.position.set(0, 2, -11);
   scene.add(windowLightGlow);
 
-  // Sky Backdrop Plane (Visible through the window)
+  // Sky Backdrop Plane (Static golden sky visible through window)
   const skyMat = new THREE.MeshBasicMaterial({ color: 0xdfb76c, side: THREE.DoubleSide });
   const skyPlane = new THREE.Mesh(new THREE.PlaneGeometry(24, 16), skyMat);
   skyPlane.position.set(0, 3, -13.5);
@@ -327,6 +332,36 @@ function initPaperAirplane3DScene() {
   windowGlass.position.set(0, 1.75, -11.6);
   roomGroup.add(windowGlass);
 
+  // Load Carley GLB Logo on the wall
+  if (typeof THREE.GLTFLoader !== 'undefined') {
+    const gltfLoader = new THREE.GLTFLoader();
+    gltfLoader.load('assets/carley.glb', (gltf) => {
+      const logoModel = gltf.scene;
+
+      // Calculate bounding box to center and scale appropriately
+      const bbox = new THREE.Box3().setFromObject(logoModel);
+      const size = bbox.getSize(new THREE.Vector3());
+      const maxDim = Math.max(size.x, size.y, size.z);
+      const scaleFactor = 4.5 / (maxDim || 1);
+
+      logoModel.scale.set(scaleFactor, scaleFactor, scaleFactor);
+
+      // Mount logo on top left back wall
+      logoModel.position.set(-6.5, 3.5, -11.6);
+
+      logoModel.traverse((child) => {
+        if (child.isMesh) {
+          child.castShadow = true;
+          child.receiveShadow = true;
+        }
+      });
+
+      roomGroup.add(logoModel);
+    }, undefined, (err) => {
+      console.warn('Could not load assets/carley.glb:', err);
+    });
+  }
+
   scene.add(roomGroup);
 
   // Paper Airplane Model Setup
@@ -387,89 +422,56 @@ function initPaperAirplane3DScene() {
   // Real Aerodynamic Flight Physics Variables
   let flightTime = 0;
 
-  // Function to evaluate smooth 3D trajectory path
+  // Function to evaluate smooth continuous circular 3D trajectory path ("girar en redondo con inclinación")
   function getAirplanePath(t) {
-    // Weave around 3D room space:
-    // X loops wide (-13 to +13)
-    // Y climbs and dives (-1 to +4.5)
-    // Z traverses from behind text (-7) to in front of text (+7)
-    const x = Math.sin(t * 0.6) * 12.5 + Math.cos(t * 0.3) * 2;
-    const y = Math.sin(t * 1.2) * 2.2 + 1.8;
-    const z = Math.sin(t * 0.4) * 8.5;
+    const angle = t * 0.75;
+    const radiusX = 10.5;
+    const radiusZ = 6.8;
+
+    // Continuous circular orbit around room center
+    const x = Math.cos(angle) * radiusX;
+    const z = Math.sin(angle) * radiusZ;
+    const y = Math.sin(angle * 2.0) * 0.9 + 2.0; // gentle elevation wave
     return new THREE.Vector3(x, y, z);
   }
 
-  // Animation Loop for 4D Day/Night Cycle & Realistic Flight Curves
-  let dayTime = 0;
+  // Animation Loop & Realistic Circular Flight Curves
   let currentQuat = new THREE.Quaternion();
 
   function animate3D() {
     requestAnimationFrame(animate3D);
 
-    // 4D Day/Night lighting & Sky cycle
-    dayTime += 0.005;
-    const sunX = Math.cos(dayTime) * 20;
-    const sunY = Math.sin(dayTime) * 18;
-    const sunZ = Math.sin(dayTime * 0.7) * 12;
-
-    sunLight.position.set(sunX, sunY, sunZ);
-
-    const isDay = sunY > 0;
-    const lightIntensity = Math.max(0.2, Math.sin(dayTime) * 2.0);
-    sunLight.intensity = lightIntensity;
-
-    if (isDay) {
-      sunLight.color.setHSL(0.1, 0.85, 0.65); // Warm golden daytime
-      windowLightGlow.color.setHSL(0.1, 0.9, 0.6);
-      skyMat.color.setHex(0xdfb76c);
-      scene.background.setHex(0x07070a);
-    } else {
-      sunLight.color.setHSL(0.65, 0.65, 0.35); // Deep night blue
-      windowLightGlow.color.setHSL(0.12, 0.8, 0.35);
-      skyMat.color.setHex(0x0e182b);
-      scene.background.setHex(0x040406);
-    }
-
     // Aerodynamic Flight Physics Update
     flightTime += 0.012;
 
     const pos = getAirplanePath(flightTime);
-    const futurePos = getAirplanePath(flightTime + 0.05);
-    const pastPos = getAirplanePath(flightTime - 0.05);
+    const futurePos = getAirplanePath(flightTime + 0.04);
 
     // Update 3D position
     airplaneGroup.position.copy(pos);
 
-    // Calculate velocity vectors for smooth yaw, pitch, and banking (roll)
+    // Velocity vector points forward along trajectory
     const vel = new THREE.Vector3().subVectors(futurePos, pos);
-    const pastVel = new THREE.Vector3().subVectors(pos, pastPos);
 
     const speed = vel.length();
     if (speed > 0.0001) {
       const dir = vel.clone().normalize();
 
-      // Yaw (horizontal direction angle)
+      // Yaw (heading direction angle around Y axis)
       const yaw = Math.atan2(dir.x, dir.z);
 
-      // Pitch (climb / dive angle)
+      // Pitch (climb/dive angle)
       const pitch = Math.atan2(dir.y, Math.sqrt(dir.x * dir.x + dir.z * dir.z));
 
-      // Turning curvature rate to calculate aerodynamic banking roll
-      const turnVector = new THREE.Vector3().subVectors(vel, pastVel);
-      // Cross product to check turn direction (left or right)
-      const turnCross = vel.clone().cross(pastVel);
-      const turnSign = turnCross.y >= 0 ? 1 : -1;
-      const turnRate = turnVector.length() * turnSign * 18;
+      // Continuous inward banking tilt for circular flight curve ("se inclina al girar en redondo")
+      const bankRoll = -0.42;
 
-      // Bank wings into turns smoothly (aerodynamic roll)
-      const roll = Math.max(-0.65, Math.min(0.65, turnRate));
-
-      // Construct aerodynamic target rotation Euler
-      const targetEuler = new THREE.Euler(pitch, yaw, roll, 'YXZ');
+      // Construct aerodynamic target rotation Euler (YXZ order)
+      const targetEuler = new THREE.Euler(pitch, yaw, bankRoll, 'YXZ');
       const targetQuat = new THREE.Quaternion().setFromEuler(targetEuler);
 
-      // Slerp quaternion for butter-smooth rotational transition (no sharp snaps!)
-      currentQuat.slerp(targetQuat, 0.08);
+      // Smooth quaternion interpolation to avoid snap
+      currentQuat.slerp(targetQuat, 0.1);
       airplaneGroup.quaternion.copy(currentQuat);
     }
 
