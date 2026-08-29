@@ -347,7 +347,7 @@ function initPaperAirplane3DScene() {
       logoModel.scale.set(scaleFactor, scaleFactor, scaleFactor);
 
       // Mount logo on top right back wall away from window
-      logoModel.position.set(7.8, 3.5, -11.6);
+      logoModel.position.set(9.6, 3.5, -11.6);
 
       logoModel.traverse((child) => {
         if (child.isMesh) {
