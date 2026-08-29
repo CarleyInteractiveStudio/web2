@@ -342,12 +342,12 @@ function initPaperAirplane3DScene() {
       const bbox = new THREE.Box3().setFromObject(logoModel);
       const size = bbox.getSize(new THREE.Vector3());
       const maxDim = Math.max(size.x, size.y, size.z);
-      const scaleFactor = 4.5 / (maxDim || 1);
+      const scaleFactor = 6.2 / (maxDim || 1);
 
       logoModel.scale.set(scaleFactor, scaleFactor, scaleFactor);
 
-      // Mount logo on top left back wall
-      logoModel.position.set(-6.5, 3.5, -11.6);
+      // Mount logo on top right back wall away from window
+      logoModel.position.set(7.8, 3.5, -11.6);
 
       logoModel.traverse((child) => {
         if (child.isMesh) {
@@ -464,7 +464,7 @@ function initPaperAirplane3DScene() {
       const pitch = Math.atan2(dir.y, Math.sqrt(dir.x * dir.x + dir.z * dir.z));
 
       // Continuous inward banking tilt for circular flight curve ("se inclina al girar en redondo")
-      const bankRoll = -0.42;
+      const bankRoll = 0.45;
 
       // Construct aerodynamic target rotation Euler (YXZ order)
       const targetEuler = new THREE.Euler(pitch, yaw, bankRoll, 'YXZ');
