@@ -411,6 +411,16 @@ body {
   max-width: 800px;
 }
 
+/* Reasons Section with Moving Particles & Meteor Canvas */
+.reasons-section {
+  position: relative;
+  min-height: 480px;
+  padding: 80px 24px;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: rgba(10, 10, 14, 0.4);
+}
+
 /* Why Choose Us List - Quote / Big Bullet Point Style */
 .reasons-list {
   display: flex;
@@ -531,6 +541,21 @@ body {
   40% { transform: rotate(8deg) scale(1.04); }
   50% { transform: rotate(0deg) scale(1); }
   100% { transform: rotate(0deg) scale(1); }
+}
+
+/* Footer Link Styling */
+.footer-link {
+  color: var(--gold-light);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px dashed var(--gold-primary);
+  transition: var(--transition-smooth);
+}
+
+.footer-link:hover {
+  color: #ffffff;
+  border-bottom-color: #ffffff;
+  text-shadow: 0 0 10px rgba(223, 183, 108, 0.8);
 }
 
 /* Footer */

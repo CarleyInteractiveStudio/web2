@@ -1,7 +1,8 @@
 // Carley Interactive Moving Particle Grid & Background Rotator
 
 document.addEventListener('DOMContentLoaded', () => {
-  initGentleParticleCanvas();
+  initGentleParticleCanvas('dotsCanvas');
+  initGentleParticleCanvas('dotsCanvasReasons');
   initBackgroundRotator();
   initPaperAirplane3DScene();
   updateFooterYear();
@@ -38,8 +39,8 @@ function initBackgroundRotator() {
 
 
 // Gentle, smooth drifting background particle canvas ("poquito a poquito")
-function initGentleParticleCanvas() {
-  const canvas = document.getElementById('dotsCanvas');
+function initGentleParticleCanvas(canvasId = 'dotsCanvas') {
+  const canvas = document.getElementById(canvasId);
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
